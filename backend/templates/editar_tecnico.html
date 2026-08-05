@@ -1,0 +1,45 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Editar Técnico - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Editar Técnico</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="nombre">Nombre</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value="{{ tecnico['Nombre'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="telefono">Teléfono</label>
+            <input
+                type="text"
+                id="telefono"
+                name="telefono"
+                value="{{ tecnico['Telefono'] }}"
+                required
+            >
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">
+                Actualizar
+            </button>
+
+            <a href="{{ url_for('tecnico_bp.tecnicos') }}" class="btn-secundario">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

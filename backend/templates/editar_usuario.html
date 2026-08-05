@@ -1,0 +1,77 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Editar usuario - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Editar usuario</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="nombre">Nombre:</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value="{{ usuario['Nombre'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="correo">Correo:</label>
+            <input
+                type="email"
+                id="correo"
+                name="correo"
+                value="{{ usuario['Correo'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="contrasena">Contraseña:</label>
+            <input
+                type="password"
+                id="contrasena"
+                name="contrasena"
+                value="{{ usuario['Contrasena'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="rol">Rol:</label>
+            <select id="rol" name="rol" required>
+                <option
+                    value="Administrador"
+                    {% if usuario["Rol"] == "Administrador" %}selected{% endif %}
+                >
+                    Administrador
+                </option>
+
+                <option
+                    value="Operaciones"
+                    {% if usuario["Rol"] == "Operaciones" %}selected{% endif %}
+                >
+                    Operaciones
+                </option>
+
+                <option
+                    value="Digitador"
+                    {% if usuario["Rol"] == "Digitador" %}selected{% endif %}
+                >
+                    Digitador
+                </option>
+            </select>
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">Guardar cambios</button>
+            <a href="javascript:history.back()" class="btn-secundario">Cancelar</a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

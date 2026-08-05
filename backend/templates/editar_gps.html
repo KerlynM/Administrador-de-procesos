@@ -1,0 +1,88 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Editar GPS - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Editar GPS</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="imei">IMEI / Código de Barras</label>
+            <input
+                type="text"
+                id="imei"
+                name="imei"
+                value="{{ gps['IMEI_CodigoBarras'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="modelo">Modelo</label>
+            <input
+                type="text"
+                id="modelo"
+                name="modelo"
+                value="{{ gps['Modelo'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+                <option value="Disponible"
+                    {% if gps['Estado'] == 'Disponible' %}selected{% endif %}>
+                    Disponible
+                </option>
+
+                <option value="Asignado"
+                    {% if gps['Estado'] == 'Asignado' %}selected{% endif %}>
+                    Asignado
+                </option>
+
+                <option value="Instalado"
+                    {% if gps['Estado'] == 'Instalado' %}selected{% endif %}>
+                    Instalado
+                </option>
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_tecnico">Técnico</label>
+            <select id="id_tecnico" name="id_tecnico">
+                <option value="">Seleccione un técnico</option>
+                {% for tecnico in tecnicos %}
+                    <option value="{{ tecnico.ID_tecnico }}"
+                        {% if tecnico.ID_tecnico == gps['ID_tecnico'] %}selected{% endif %}>
+                        {{ tecnico.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="fecha_entrega">Fecha de Entrega</label>
+            <input
+                type="date"
+                id="fecha_entrega"
+                name="fecha_entrega"
+                value="{{ gps['FechaEntrega'] }}"
+            >
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">
+                Actualizar
+            </button>
+
+            <a href="{{ url_for('inventario_bp.inventario') }}" class="btn-secundario">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Editar cliente - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Editar cliente</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="nombre">Nombre:</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value="{{ cliente['Nombre'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="rnc_cedula">RNC/Cédula:</label>
+            <input
+                type="text"
+                id="rnc_cedula"
+                name="rnc_cedula"
+                value="{{ cliente['RncCedula'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="telefono">Teléfono:</label>
+            <input
+                type="text"
+                id="telefono"
+                name="telefono"
+                value="{{ cliente['Telefono'] }}"
+                required
+            >
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">Guardar cambios</button>
+            <a href="{{ url_for('clientes_bp.clientes') }}" class="btn-secundario">Volver a clientes</a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

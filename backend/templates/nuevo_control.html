@@ -1,0 +1,111 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Nuevo Control - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Nuevo Control</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="fecha_instalacion">Fecha de instalación</label>
+            <input type="date" id="fecha_instalacion" name="fecha_instalacion" required>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_cliente">Cliente</label>
+            <select id="id_cliente" name="id_cliente" required>
+                <option value="">Seleccione un cliente</option>
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.ID_Cliente }}">
+                        {{ cliente.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_tecnico">Técnico</label>
+            <select id="id_tecnico" name="id_tecnico" required>
+                <option value="">Seleccione un técnico</option>
+                {% for tecnico in tecnicos %}
+                    <option value="{{ tecnico.ID_tecnico }}">
+                        {{ tecnico.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_gps">GPS</label>
+            <select id="id_gps" name="id_gps" required>
+                <option value="">Seleccione un GPS</option>
+                {% for equipo in gps %}
+                    <option value="{{ equipo.ID_GPS }}">
+                        {{ equipo.IMEI_CodigoBarras }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_usuario">Usuario</label>
+            <select id="id_usuario" name="id_usuario" required>
+                <option value="">Seleccione un usuario</option>
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.ID_usuario }}">
+                        {{ usuario.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="tipo">Tipo</label>
+            <select id="tipo" name="tipo" required>
+                <option value="Instalacion">Instalación</option>
+                <option value="Desinstalacion">Desinstalación</option>
+                <option value="Reinstalacion">Reinstalación</option>
+                <option value="Cambio">Cambio</option>
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="chasis">Chasis</label>
+            <input type="text" id="chasis" name="chasis" required>
+        </div>
+
+        <div class="grupo-input">
+            <label for="modelo">Modelo</label>
+            <input type="text" id="modelo" name="modelo" required>
+        </div>
+
+        <div class="grupo-input">
+            <label for="ano">Año</label>
+            <input type="number" id="ano" name="ano" required>
+        </div>
+
+        <div class="grupo-input">
+            <label for="color">Color</label>
+            <input type="text" id="color" name="color" required>
+        </div>
+
+        <div class="grupo-input">
+            <label for="placa">Placa</label>
+            <input type="text" id="placa" name="placa">
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">
+                Guardar
+            </button>
+
+            <a href="{{ url_for('control_bp.controles') }}" class="btn-secundario">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes - GPS Control{% endblock %}
+
+{% block content %}
+<header class="seccion-encabezado">
+    <h2>Lista de Clientes</h2>
+    <button type="button" id="btn-abrir-modal" class="btn-accion-principal">
+        Agregar Cliente
+    </button>
+</header>
+
+<section class="seccion-tabla">
+    <table id="tabla-clientes" class="tabla-datos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>RNC / Cédula</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente["ID_Cliente"] }}</td>
+                <td>{{ cliente["Nombre"] }}</td>
+                <td>{{ cliente["RncCedula"] }}</td>
+                <td>{{ cliente["Telefono"] }}</td>
+                <td class="celda-acciones">
+                    <a href="{{ url_for('clientes_bp.editar_cliente', id_cliente=cliente['ID_Cliente']) }}" class="btn-editar">
+                        Editar
+                    </a>
+                    
+                    <form action="{{ url_for('clientes_bp.eliminar', id_cliente=cliente['ID_Cliente']) }}" method="POST" class="form-eliminar" onsubmit="return confirm('¿Seguro que deseas eliminar este cliente?');">
+                        <button type="submit" class="btn-eliminar">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr class="fila-vacia">
+                <td colspan="5">No hay clientes registrados en el sistema.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<div id="modal-agregar-cliente" class="fondo-modal" style="display: none;">
+    <div class="contenedor-modal">
+        
+        <div class="cabecera-modal">
+            <h3>Registrar Nuevo Cliente</h3>
+            <button type="button" id="btn-cerrar-modal" class="btn-cerrar">X</button>
+        </div>
+        
+        <form action="{{ url_for('clientes_bp.nuevo_cliente') }}" method="POST" class="formulario-modal">
+            <div class="grupo-input">
+                <label for="nombre">Nombre o Razón Social</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej. Soluciones S.A." required>
+            </div>
+            
+            <div class="grupo-input">
+                <label for="rnc">RNC o Cédula</label>
+                <input type="text" id="rnc" name="rnc_cedula" placeholder="Ej. 101-85432-1" required>
+            </div>
+            
+            <div class="grupo-input">
+                <label for="telefono">Teléfono de Contacto</label>
+                <input type="text" id="telefono" name="telefono" placeholder="Ej. 809-555-0199" required>
+            </div>
+            
+            <div class="pie-modal">
+                <button type="button" id="btn-cancelar-modal" class="btn-secundario">Cancelar</button>
+                <button type="submit" class="btn-primario">Guardar</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const modal = document.getElementById('modal-agregar-cliente');
+    const btnAbrir = document.getElementById('btn-abrir-modal');
+    const btnCerrar = document.getElementById('btn-cerrar-modal');
+    const btnCancelar = document.getElementById('btn-cancelar-modal');
+
+    btnAbrir.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    const cerrarModal = () => {
+        modal.style.display = 'none';
+    };
+
+    btnCerrar.addEventListener('click', cerrarModal);
+    btnCancelar.addEventListener('click', cerrarModal);
+
+    window.addEventListener('click', (evento) => {
+        if (evento.target === modal) {
+            cerrarModal();
+        }
+    });
+</script>
+{% endblock %}

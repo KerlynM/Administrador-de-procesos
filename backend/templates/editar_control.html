@@ -1,0 +1,161 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Editar Control - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Editar Control</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="fecha_instalacion">Fecha de instalación</label>
+            <input
+                type="date"
+                id="fecha_instalacion"
+                name="fecha_instalacion"
+                value="{{ control['FechaInstalacion'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_cliente">Cliente</label>
+            <select id="id_cliente" name="id_cliente" required>
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.ID_Cliente }}"
+                        {% if cliente.ID_Cliente == control['ID_cliente'] %}selected{% endif %}>
+                        {{ cliente.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_tecnico">Técnico</label>
+            <select id="id_tecnico" name="id_tecnico" required>
+                {% for tecnico in tecnicos %}
+                    <option value="{{ tecnico.ID_tecnico }}"
+                        {% if tecnico.ID_tecnico == control['ID_tecnico'] %}selected{% endif %}>
+                        {{ tecnico.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_gps">GPS</label>
+            <select id="id_gps" name="id_gps" required>
+                {% for equipo in gps %}
+                    <option value="{{ equipo.ID_GPS }}"
+                        {% if equipo.ID_GPS == control['ID_GPS'] %}selected{% endif %}>
+                        {{ equipo.IMEI_CodigoBarras }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_usuario">Usuario</label>
+            <select id="id_usuario" name="id_usuario" required>
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.ID_usuario }}"
+                        {% if usuario.ID_usuario == control['ID_Usuario'] %}selected{% endif %}>
+                        {{ usuario.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="tipo">Tipo</label>
+            <select id="tipo" name="tipo" required>
+                <option value="Instalacion"
+                    {% if control['Tipo'] == 'Instalacion' %}selected{% endif %}>
+                    Instalación
+                </option>
+
+                <option value="Desinstalacion"
+                    {% if control['Tipo'] == 'Desinstalacion' %}selected{% endif %}>
+                    Desinstalación
+                </option>
+
+                <option value="Reinstalacion"
+                    {% if control['Tipo'] == 'Reinstalacion' %}selected{% endif %}>
+                    Reinstalación
+                </option>
+
+                <option value="Cambio"
+                    {% if control['Tipo'] == 'Cambio' %}selected{% endif %}>
+                    Cambio
+                </option>
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="chasis">Chasis</label>
+            <input
+                type="text"
+                id="chasis"
+                name="chasis"
+                value="{{ control['Chasis'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="modelo">Modelo</label>
+            <input
+                type="text"
+                id="modelo"
+                name="modelo"
+                value="{{ control['Modelo'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="ano">Año</label>
+            <input
+                type="number"
+                id="ano"
+                name="ano"
+                value="{{ control['Ano'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="color">Color</label>
+            <input
+                type="text"
+                id="color"
+                name="color"
+                value="{{ control['Color'] }}"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="placa">Placa</label>
+            <input
+                type="text"
+                id="placa"
+                name="placa"
+                value="{{ control['Placa'] if control['Placa'] else '' }}"
+            >
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">
+                Actualizar
+            </button>
+
+            <a href="{{ url_for('control_bp.controles') }}" class="btn-secundario">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

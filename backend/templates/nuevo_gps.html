@@ -1,0 +1,71 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Nuevo GPS - GPS Control{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nuevo_gps.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Registrar GPS</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="archivo_excel">📁 Importar desde Excel (.xlsx, .xls)</label>
+            <input type="file" id="archivo_excel" name="archivo_excel" accept=".xlsx, .xls">
+            <small class="text-muted" style="font-size: 12px; margin-top: 4px; display: block;">Si subes un Excel, se ignorarán los campos individuales de abajo.</small>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+        <div class="grupo-input">
+            <label for="imei">IMEI / Código de Barras</label>
+            <input type="text" id="imei" name="imei">
+        </div>
+
+        <div class="grupo-input">
+            <label for="modelo">Modelo</label>
+            <input type="text" id="modelo" name="modelo">
+        </div>
+
+        <div class="grupo-input">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+                <option value="Disponible">Disponible</option>
+                <option value="En Uso">En Uso</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="id_tecnico">Técnico</label>
+            <select id="id_tecnico" name="id_tecnico">
+                <option value="">Seleccione un técnico</option>
+                {% for tecnico in tecnicos %}
+                    <option value="{{ tecnico.ID_tecnico }}">
+                        {{ tecnico.Nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-input">
+            <label for="fecha_entrega">Fecha de Entrega</label>
+            <input type="date" id="fecha_entrega" name="fecha_entrega">
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">
+                Guardar
+            </button>
+
+            <a href="{{ url_for('inventario_bp.inventario') }}" class="btn-secundario">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

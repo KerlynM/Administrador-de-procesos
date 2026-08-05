@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GPS Control{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-light d-flex flex-column min-vh-100 role-{{ session.get('rol', 'invitado') | lower | replace(' ', '-') }}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid px-4">
+            
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="/dashboard">
+                <i class="bi bi-geo-alt-fill text-primary me-2 fs-4"></i>
+                <span>GPS CONTROL</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="bi bi-house-door me-1"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/inventario"><i class="bi bi-box-seam me-1"></i> Inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes"><i class="bi bi-people me-1"></i> Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tecnicos"><i class="bi bi-tools me-1"></i> Técnicos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios"><i class="bi bi-person-badge me-1"></i> Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/controles"><i class="bi bi-sliders me-1"></i> Controles</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center text-white pt-2 pt-lg-0">
+                    <span class="me-3 small">
+                        <i class="bi bi-person-circle me-1"></i> {{ session.get('usuario', 'Usuario') }}
+                    </span>
+                    <a href="/logout" class="btn btn-outline-danger btn-sm" title="Cerrar Sesión">
+                        <i class="bi bi-box-arrow-right"></i> Salir
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <main class="container my-4 flex-grow-1">
+        
+        {# Barra de búsqueda moderna y estilizada (Oculta en dashboard y formularios) #}
+        {% if request.path != '/dashboard' and 'nuevo' not in request.path and 'editar' not in request.path and 'importar' not in request.path %}
+            <div class="d-flex justify-content-end mb-3">
+                <div style="width: 100%; max-width: 320px;">
+                    <div class="input-group input-group-sm shadow-sm rounded-pill overflow-hidden border bg-white">
+                        <span class="input-group-text bg-white border-0 ps-3"><i class="bi bi-search text-muted"></i></span>
+                        <input 
+                            type="text" 
+                            id="inputBusquedaGlobal" 
+                            placeholder="Filtrar registros..." 
+                            class="form-control border-0 shadow-none py-2"
+                            autocomplete="off"
+                        >
+                        <button class="btn btn-link text-muted border-0 text-decoration-none pe-3" type="button" id="btnLimpiarBusqueda" title="Limpiar">
+                            <i class="bi bi-x-lg small"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-white border-top py-3 mt-auto text-center text-muted small">
+        <div class="container">
+            <span>&copy; Sistema de Control de Dispositivos GPS</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputBusqueda = document.getElementById("inputBusquedaGlobal");
+            const btnLimpiar = document.getElementById("btnLimpiarBusqueda");
+
+            if (inputBusqueda) {
+                inputBusqueda.addEventListener("keyup", function() {
+                    let filtro = inputBusqueda.value.toLowerCase().trim();
+                    let filas = document.querySelectorAll("table tbody tr");
+
+                    filas.forEach(function(fila) {
+                        let textoFila = fila.textContent.toLowerCase();
+                        if (textoFila.includes(filtro)) {
+                            fila.style.display = "";
+                        } else {
+                            fila.style.display = "none";
+                        }
+                    });
+                });
+
+                if (btnLimpiar) {
+                    btnLimpiar.addEventListener("click", function() {
+                        inputBusqueda.value = "";
+                        let filas = document.querySelectorAll("table tbody tr");
+                        filas.forEach(fila => fila.style.display = "");
+                        inputBusqueda.focus();
+                    });
+                }
+            }
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

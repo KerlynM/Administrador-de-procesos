@@ -1,0 +1,473 @@
+/* Ajustes generales y espaciados para los formularios limpios */
+.card {
+    border-radius: 0.75rem;
+}
+
+/* Espaciado óptimo para las etiquetas de los formularios */
+form label, .form-label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: #495057;
+}
+
+/* Estilo para los campos requeridos sutilmente resaltados */
+input:required:invalid, select:required:invalid {
+    border-color: #ced4da;
+}
+
+/* Transición suave al enfocar cualquier campo */
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15) !important;
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS DEL DASHBOARD 
+========================================= */
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+/* Tarjetas de Resumen (Los cuadros de arriba) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-left: 5px solid #0d6efd; /* Color azul por defecto */
+}
+
+.stat-card.green { border-left-color: #198754; } /* Color verde */
+.stat-card.purple { border-left-color: #6f42c1; } /* Color morado */
+
+.stat-card h3 {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stat-card .stat-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #212529;
+}
+
+/* Sección de los Gráficos */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Estilos específicos para la vista de Inventario */
+.fs-7 {
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+}
+
+.table th {
+    font-weight: 600;
+    color: #495057;
+    background-color: #f8f9fa !important;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    vertical-align: middle;
+    color: #212529;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+/* Contenedor principal de la tarjeta de registro */
+.contenedor-formulario-auth {
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-formulario-auth h2 {
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+}
+
+/* Cada grupo de campo */
+.form-registro .grupo-input {
+    margin-bottom: 18px;
+}
+
+/* Forzar que la etiqueta esté obligatoriamente arriba */
+.form-registro label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #495057;
+    font-size: 14px;
+}
+
+/* Inputs, selects y fechas ocupando el 100% */
+.form-registro input,
+.form-registro select {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box; /* Vital para que no se salgan del contenedor */
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-registro input:focus,
+.form-registro select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* Acciones y botones */
+.acciones-formulario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-accion-principal {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-accion-principal:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-secundario {
+    color: #6c757d;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.btn-secundario:hover {
+    color: #343a40;
+    text-decoration: underline;
+}
+/* --- ESTILOS DE CLIENTES Y MODAL --- */
+.seccion-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.seccion-encabezado h2 {
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.btn-accion-principal {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-accion-principal:hover {
+    background-color: #0b5ed7;
+}
+
+.seccion-tabla {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.tabla-datos {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.tabla-datos th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.tabla-datos td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #dee2e6;
+    color: #212529;
+    vertical-align: middle;
+}
+
+.tabla-datos tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.fila-vacia td {
+    text-align: center;
+    color: #6c757d;
+    padding: 30px;
+    font-style: italic;
+}
+
+.celda-acciones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.btn-editar:hover {
+    background-color: #ffca2c;
+}
+
+.form-eliminar {
+    display: inline;
+    margin: 0;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.btn-eliminar:hover {
+    background-color: #bb2d3b;
+}
+
+.fondo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contenedor-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.cabecera-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.cabecera-modal h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 700;
+}
+
+.btn-cerrar {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.btn-cerrar:hover {
+    color: #000;
+}
+
+.formulario-modal {
+    padding: 20px;
+}
+
+.formulario-modal .grupo-input {
+    margin-bottom: 15px;
+}
+
+.formulario-modal label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #495057;
+    font-size: 13px;
+}
+
+.formulario-modal input {
+    display: block;
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario-modal input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.pie-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primario {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-primario:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-secundario {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-secundario:hover {
+    background-color: #5c636a;
+}
+/* --- ESTILOS PARA LA VISTA DE LOGIN --- */
+.logo-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e9ecef;
+}
+
+.input-pill {
+    border-radius: 50rem !important;
+    padding: 10px 20px !important;
+    text-align: center;
+}
+
+.btn-pill {
+    border-radius: 50rem !important;
+    background-color: #3b50ff !important;
+    border: none;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.btn-pill:hover {
+    background-color: #2e3fe0 !important;
+}
+
+/* --- ESTILOS RECTANGULARES PARA EL LOGIN --- */
+.input-rectangular {
+    border-radius: 6px !important;
+    padding: 10px 14px !important;
+    text-align: left !important;
+}
+
+.btn-rectangular {
+    border-radius: 6px !important;
+    background-color: #0d6efd !important;
+    border: none;
+    font-weight: 600;
+    width: 100% !important;
+    padding: 10px !important;
+    letter-spacing: 0.5px;
+}
+
+.btn-rectangular:hover {
+    background-color: #0b5ed7 !important;
+}

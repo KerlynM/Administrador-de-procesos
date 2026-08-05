@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Técnicos - GPS Control{% endblock %}
+
+{% block content %}
+<!-- 1. Encabezado y Botón de Acción -->
+<header class="seccion-encabezado">
+    <h2>Técnicos</h2>
+    
+    <!-- Botón que activa el modal -->
+    <button type="button" id="btn-abrir-modal" class="btn-accion-principal">
+        Nuevo técnico
+    </button>
+</header>
+
+<!-- 2. Tabla Estructural de Técnicos -->
+<section class="seccion-tabla">
+    <table id="tabla-tecnicos" class="tabla-datos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for tecnico in tecnicos %}
+            <tr>
+                <td>{{ tecnico['ID_tecnico'] }}</td>
+                <td>{{ tecnico['Nombre'] }}</td>
+                <td>{{ tecnico['Telefono'] }}</td>
+
+                <td class="celda-acciones">
+                    <!-- Botón Editar -->
+                    <a href="{{ url_for('tecnico_bp.editar_tecnico', id_tecnico=tecnico['ID_tecnico']) }}" class="btn-editar">
+                        Editar
+                    </a>
+
+                    <!-- Botón Eliminar -->
+                    <form action="{{ url_for('tecnico_bp.eliminar', id_tecnico=tecnico['ID_tecnico']) }}" method="POST" class="form-eliminar" onsubmit="return confirm('¿Seguro que deseas eliminar este técnico?');">
+                        <button type="submit" class="btn-eliminar">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <!-- Fila de respaldo si no hay registros -->
+            <tr class="fila-vacia">
+                <td colspan="4">No hay técnicos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- 3. Modal para Registrar Nuevo Técnico -->
+<div id="modal-agregar-tecnico" class="fondo-modal" style="display: none;">
+    <div class="contenedor-modal">
+        
+        <div class="cabecera-modal">
+            <h3>Registrar Nuevo Técnico</h3>
+            <button type="button" id="btn-cerrar-modal" class="btn-cerrar">X</button>
+        </div>
+        
+        <form action="{{ url_for('tecnico_bp.nuevo_tecnico') }}" method="POST" class="formulario-modal">
+            <div class="grupo-input">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+            </div>
+            
+            <div class="grupo-input">
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" placeholder="Ej. 809-555-0199" required>
+            </div>
+            
+            <div class="pie-modal">
+                <button type="button" id="btn-cancelar-modal" class="btn-secundario">Cancelar</button>
+                <button type="submit" class="btn-primario">Guardar</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const modal = document.getElementById('modal-agregar-tecnico');
+    const btnAbrir = document.getElementById('btn-abrir-modal');
+    const btnCerrar = document.getElementById('btn-cerrar-modal');
+    const btnCancelar = document.getElementById('btn-cancelar-modal');
+
+    btnAbrir.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    const cerrarModal = () => {
+        modal.style.display = 'none';
+    };
+
+    btnCerrar.addEventListener('click', cerrarModal);
+    btnCancelar.addEventListener('click', cerrarModal);
+
+    window.addEventListener('click', (evento) => {
+        if (evento.target === modal) {
+            cerrarModal();
+        }
+    });
+</script>
+{% endblock %}

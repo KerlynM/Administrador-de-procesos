@@ -1,0 +1,43 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Nuevo Técnico - GPS Control{% endblock %}
+
+{% block content %}
+<div class="contenedor-formulario-auth">
+    <h2>Nuevo Técnico</h2>
+
+    <form method="POST" class="form-registro">
+
+        <div class="grupo-input">
+            <label for="nombre">Nombre</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                required
+            >
+        </div>
+
+        <div class="grupo-input">
+            <label for="telefono">Teléfono</label>
+            <input
+                type="text"
+                id="telefono"
+                name="telefono"
+                required
+            >
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="submit" class="btn-accion-principal">
+                Guardar
+            </button>
+
+            <a href="{{ url_for('tecnico_bp.tecnicos') }}" class="btn-secundario">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
