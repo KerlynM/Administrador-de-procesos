@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+import pymysql.err
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from models.cliente import (
     obtener_clientes,
     crear_cliente,
@@ -90,6 +91,14 @@ def eliminar(id_cliente):
     if "usuario" not in session:
         return redirect(url_for("login"))
 
-    eliminar_cliente(id_cliente)
+    try:
+        eliminar_cliente(id_cliente)
+        flash("Cliente eliminado correctamente.", "success")
+        
+    except pymysql.err.IntegrityError:
+        flash("Este cliente tiene registros asociados, no se puede eliminar.", "danger")
+        
+    except Exception as e:
+        flash(f"Ocurrió un error inesperado: {str(e)}", "danger")
 
     return redirect(url_for("clientes_bp.clientes"))

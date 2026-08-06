@@ -1,13 +1,19 @@
 {% extends "base_auth.html" %}
-
+ 
 {% block title %}Editar cliente - GPS Control{% endblock %}
-
+ 
 {% block content %}
 <div class="contenedor-formulario-auth">
     <h2>Editar cliente</h2>
-
+ 
+    {% if error %}
+        <div class="alert alert-danger py-2 small" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+ 
     <form method="POST" class="form-registro">
-
+ 
         <div class="grupo-input">
             <label for="nombre">Nombre:</label>
             <input
@@ -18,7 +24,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="rnc_cedula">RNC/Cédula:</label>
             <input
@@ -29,7 +35,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="telefono">Teléfono:</label>
             <input
@@ -40,12 +46,12 @@
                 required
             >
         </div>
-
+ 
         <div class="acciones-formulario">
             <button type="submit" class="btn-accion-principal">Guardar cambios</button>
             <a href="{{ url_for('clientes_bp.clientes') }}" class="btn-secundario">Volver a clientes</a>
         </div>
-
+ 
     </form>
 </div>
 {% endblock %}

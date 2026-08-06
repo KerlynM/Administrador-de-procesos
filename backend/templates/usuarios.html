@@ -13,6 +13,19 @@
     {% endif %}
 </header>
 
+<!-- BLOQUE DE MENSAJES FLASH AÑADIDO -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show mt-3 mb-3" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<!-- FIN BLOQUE DE MENSAJES FLASH -->
+
 <section class="seccion-tabla">
     <table id="tabla-usuarios" class="tabla-datos">
         <thead>
@@ -88,7 +101,6 @@
                 <select id="rol" name="rol" required>
                     <option value="" disabled selected>Seleccione un rol</option>
                     <option value="Administrador">Administrador</option>
-                    <option value="Digitador">Digitador</option>
                     <option value="Operaciones">Operaciones</option>
                 </select>
             </div>

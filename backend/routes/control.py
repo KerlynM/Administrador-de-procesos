@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
 from datetime import date
 
+# Hemos agregado esta importación para poder cambiar el estado del GPS
+from models.inventario import actualizar_estado_gps
+
 from models.control import (
     obtener_controles,
     crear_control,
@@ -10,7 +13,6 @@ from models.control import (
     obtener_clientes,
     obtener_tecnicos,
     obtener_gps,
-    obtener_usuarios,
     obtener_operaciones_por_fecha
 )
 
@@ -40,7 +42,7 @@ def nuevo_control():
         id_cliente = request.form["id_cliente"]
         id_tecnico = request.form["id_tecnico"]
         id_gps = request.form["id_gps"]
-        id_usuario = request.form["id_usuario"]
+        id_usuario = session["id_usuario"]
         tipo = request.form["tipo"]
         chasis = request.form["chasis"]
         modelo = request.form["modelo"]
@@ -66,20 +68,21 @@ def nuevo_control():
             flash(mensaje_error, "danger")
             return redirect(url_for("control_bp.nuevo_control"))
         
+        # Actualizamos el estado del GPS a 'Instalado' al crear el control
+        actualizar_estado_gps(id_gps, "Instalado")
+        
         flash("Control registrado exitosamente.", "success")
         return redirect(url_for("control_bp.controles"))
 
     clientes = obtener_clientes()
     tecnicos = obtener_tecnicos()
     gps = obtener_gps()
-    usuarios = obtener_usuarios()
     
     return render_template(
         "nuevo_control.html",
         clientes=clientes,
         tecnicos=tecnicos,
-        gps=gps,
-        usuarios=usuarios
+        gps=gps
     )
 
 @control_bp.route(
@@ -97,7 +100,7 @@ def editar_control(id_control):
         id_cliente = request.form["id_cliente"]
         id_tecnico = request.form["id_tecnico"]
         id_gps = request.form["id_gps"]
-        id_usuario = request.form["id_usuario"]
+        id_usuario = session["id_usuario"]
         tipo = request.form["tipo"]
         chasis = request.form["chasis"]
         modelo = request.form["modelo"]
@@ -124,21 +127,22 @@ def editar_control(id_control):
             flash(mensaje_error, "danger")
             return redirect(url_for("control_bp.editar_control", id_control=id_control))
 
+        # Actualizamos el estado del GPS a 'Instalado' al editar el control
+        actualizar_estado_gps(id_gps, "Instalado")
+
         flash("Control actualizado exitosamente.", "success")
         return redirect(url_for("control_bp.controles"))
 
     clientes = obtener_clientes()
     tecnicos = obtener_tecnicos()
     gps = obtener_gps()
-    usuarios = obtener_usuarios()
 
     return render_template(
         "editar_control.html",
         control=control,
         clientes=clientes,
         tecnicos=tecnicos,
-        gps=gps,
-        usuarios=usuarios
+        gps=gps
     )
 
 @control_bp.route("/controles/eliminar/<int:id_control>", methods=["POST"])

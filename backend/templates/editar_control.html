@@ -1,13 +1,24 @@
 {% extends "base_auth.html" %}
-
+ 
 {% block title %}Editar Control - GPS Control{% endblock %}
-
+ 
 {% block content %}
 <div class="contenedor-formulario-auth">
     <h2>Editar Control</h2>
-
+ 
+    <!-- Mensajes flash (ej. GPS ya cuenta con otra instalación) -->
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+            {% for categoria, mensaje in mensajes %}
+                <div class="alert alert-{{ categoria }} py-2 small" role="alert">
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+ 
     <form method="POST" class="form-registro">
-
+ 
         <div class="grupo-input">
             <label for="fecha_instalacion">Fecha de instalación</label>
             <input
@@ -18,7 +29,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="id_cliente">Cliente</label>
             <select id="id_cliente" name="id_cliente" required>
@@ -30,7 +41,7 @@
                 {% endfor %}
             </select>
         </div>
-
+ 
         <div class="grupo-input">
             <label for="id_tecnico">Técnico</label>
             <select id="id_tecnico" name="id_tecnico" required>
@@ -42,7 +53,7 @@
                 {% endfor %}
             </select>
         </div>
-
+ 
         <div class="grupo-input">
             <label for="id_gps">GPS</label>
             <select id="id_gps" name="id_gps" required>
@@ -54,19 +65,7 @@
                 {% endfor %}
             </select>
         </div>
-
-        <div class="grupo-input">
-            <label for="id_usuario">Usuario</label>
-            <select id="id_usuario" name="id_usuario" required>
-                {% for usuario in usuarios %}
-                    <option value="{{ usuario.ID_usuario }}"
-                        {% if usuario.ID_usuario == control['ID_Usuario'] %}selected{% endif %}>
-                        {{ usuario.Nombre }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-
+ 
         <div class="grupo-input">
             <label for="tipo">Tipo</label>
             <select id="tipo" name="tipo" required>
@@ -74,24 +73,24 @@
                     {% if control['Tipo'] == 'Instalacion' %}selected{% endif %}>
                     Instalación
                 </option>
-
+ 
                 <option value="Desinstalacion"
                     {% if control['Tipo'] == 'Desinstalacion' %}selected{% endif %}>
                     Desinstalación
                 </option>
-
+ 
                 <option value="Reinstalacion"
                     {% if control['Tipo'] == 'Reinstalacion' %}selected{% endif %}>
                     Reinstalación
                 </option>
-
+ 
                 <option value="Cambio"
                     {% if control['Tipo'] == 'Cambio' %}selected{% endif %}>
                     Cambio
                 </option>
             </select>
         </div>
-
+ 
         <div class="grupo-input">
             <label for="chasis">Chasis</label>
             <input
@@ -102,7 +101,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="modelo">Modelo</label>
             <input
@@ -113,7 +112,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="ano">Año</label>
             <input
@@ -124,7 +123,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="color">Color</label>
             <input
@@ -135,7 +134,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="placa">Placa</label>
             <input
@@ -145,17 +144,17 @@
                 value="{{ control['Placa'] if control['Placa'] else '' }}"
             >
         </div>
-
+ 
         <div class="acciones-formulario">
             <button type="submit" class="btn-accion-principal">
                 Actualizar
             </button>
-
+ 
             <a href="{{ url_for('control_bp.controles') }}" class="btn-secundario">
                 Cancelar
             </a>
         </div>
-
+ 
     </form>
 </div>
 {% endblock %}

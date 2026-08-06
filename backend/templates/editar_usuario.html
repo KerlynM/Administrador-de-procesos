@@ -1,13 +1,23 @@
 {% extends "base_auth.html" %}
-
+ 
 {% block title %}Editar usuario - GPS Control{% endblock %}
-
+ 
 {% block content %}
 <div class="contenedor-formulario-auth">
     <h2>Editar usuario</h2>
-
+ 
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+            {% for categoria, mensaje in mensajes %}
+                <div class="alert alert-{{ categoria }} py-2 small" role="alert">
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+ 
     <form method="POST" class="form-registro">
-
+ 
         <div class="grupo-input">
             <label for="nombre">Nombre:</label>
             <input
@@ -18,7 +28,7 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="correo">Correo:</label>
             <input
@@ -29,18 +39,17 @@
                 required
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="contrasena">Contraseña:</label>
             <input
                 type="password"
                 id="contrasena"
                 name="contrasena"
-                value="{{ usuario['Contrasena'] }}"
-                required
+                placeholder="Dejar en blanco para no cambiarla"
             >
         </div>
-
+ 
         <div class="grupo-input">
             <label for="rol">Rol:</label>
             <select id="rol" name="rol" required>
@@ -50,28 +59,21 @@
                 >
                     Administrador
                 </option>
-
+ 
                 <option
                     value="Operaciones"
                     {% if usuario["Rol"] == "Operaciones" %}selected{% endif %}
                 >
                     Operaciones
                 </option>
-
-                <option
-                    value="Digitador"
-                    {% if usuario["Rol"] == "Digitador" %}selected{% endif %}
-                >
-                    Digitador
-                </option>
             </select>
         </div>
-
+ 
         <div class="acciones-formulario">
             <button type="submit" class="btn-accion-principal">Guardar cambios</button>
             <a href="javascript:history.back()" class="btn-secundario">Cancelar</a>
         </div>
-
+ 
     </form>
 </div>
 {% endblock %}

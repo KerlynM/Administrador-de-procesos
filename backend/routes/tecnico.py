@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+import pymysql.err
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 
 from models.tecnico import (
     obtener_tecnicos,
@@ -82,6 +83,14 @@ def eliminar(id_tecnico):
     if "usuario" not in session:
         return redirect(url_for("login"))
 
-    eliminar_tecnico(id_tecnico)
+    try:
+        eliminar_tecnico(id_tecnico)
+        flash("Técnico eliminado correctamente.", "success")
+        
+    except pymysql.err.IntegrityError:
+        flash("Este técnico tiene registros asociados, no se puede eliminar.", "danger")
+        
+    except Exception as e:
+        flash(f"Ocurrió un error inesperado: {str(e)}", "danger")
 
     return redirect(url_for("tecnico_bp.tecnicos"))

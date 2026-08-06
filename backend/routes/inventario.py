@@ -107,7 +107,15 @@ def eliminar(id_gps):
     if "usuario" not in session:
         return redirect(url_for("login"))
 
-    eliminar_gps(id_gps)
+    try:
+        eliminar_gps(id_gps)
+        flash("GPS eliminado correctamente.", "success")
+        
+    except pymysql.err.IntegrityError:
+        flash("Este GPS tiene registros asociados en los controles, no se puede eliminar.", "danger")
+        
+    except Exception as e:
+        flash(f"Ocurrió un error inesperado: {str(e)}", "danger")
 
     return redirect(url_for("inventario_bp.inventario"))
 
@@ -160,7 +168,7 @@ def importar_inventario():
             
             # Llamamos a tu función crear_gps importada de models.inventario
             exito, error = crear_gps(
-                imei,           # imei
+                imei,          # imei
                 modelo,          # modelo
                 estado,          # estado
                 None,            # id_tecnico (vacío por defecto al importar)
